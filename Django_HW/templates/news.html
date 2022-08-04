@@ -1,0 +1,23 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+{% load custom_tags %}
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+   <h1>Все новости
+   </h1>
+
+   {% if news %}
+       {% include 'article_table.html' %}
+   {% else %}
+       <h2>Новостей нет!</h2>
+   {% endif %}
+
+
+{% endblock content %}
+
+
+

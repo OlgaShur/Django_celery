@@ -1,0 +1,51 @@
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block content %}
+<hr>
+   {% if news %}
+       <table>
+           <tr>
+               <td>Заголовок</td>
+               <td>Дата публикации</td>
+               <td>Содержание</td>
+               <td>Категория</td>
+           </tr>
+           {% for post in news %}
+           <tr>
+               <td>{{ post.name | censor }}</td>
+               <td>{{ post.post_time_create }}</td>
+               <td>{{ post.description | censor | truncatewords:15 }}</td>
+               <td>{% for category in post.category.all%}
+               {{ category }}
+               {% endfor %}
+               </td>
+           </tr>
+           {% endfor %}
+       </table>
+   {% else %}
+       <h2>Новостей нет!</h2>
+   {% endif %}
+
+
+
+
+{% if page_obj.has_previous %}
+       <a href="?page=1">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+
+   {{ page_obj.number }}
+
+   {% if page_obj.has_next %}
+       <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+
+{% endblock content %}

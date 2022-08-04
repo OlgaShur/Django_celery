@@ -1,0 +1,30 @@
+{% extends 'news.html' %}
+
+{% load custom_filters %}
+{% load custom_tags %}
+{% load static %}
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+   <h1>Все новости</h1>
+   <form action="" method="get">
+       {{ filterset.form.as_p }}
+       <input type="submit" value="Найти" />
+   </form>
+<hr>
+Вы искали:
+{{ filterset.form.name }}
+{{ filterset.form.description }}
+{{ filterset.form.type }}
+{{ filterset.form.category }}
+
+
+    {% include 'article_table.html' %}
+
+{% endblock content %}
+
+
+
